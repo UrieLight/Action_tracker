@@ -18,6 +18,7 @@ class MyTasks extends BaseController
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('project_model');
         $this->isLoggedIn();   
     }
     
@@ -27,6 +28,7 @@ class MyTasks extends BaseController
     public function index()
     {
         $this->global['pageTitle'] = 'ActionTracker : My Tasks';
+        $this->global['all_projects'] = $this->project_model->getAllProjects();
         
         $this->loadViews("vw_mytasks", $this->global, NULL , NULL);
     }

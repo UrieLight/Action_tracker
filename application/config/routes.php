@@ -54,6 +54,7 @@ $route['addNew'] = "user/addNew";
 // By me
 $route['new_task'] = "new_task";
 $route['mytasks'] = "mytasks";
+//end of By me
 
 $route['addNewUser'] = "user/addNewUser";
 $route['editOld'] = "user/editOld";

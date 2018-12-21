@@ -18,6 +18,7 @@ class New_task extends BaseController
     {
         parent::__construct();
         $this->load->model('user_model');
+        $this->load->model('project_model');
         $this->isLoggedIn();   
     }
     
@@ -27,7 +28,7 @@ class New_task extends BaseController
     public function index()
     {
         $this->global['pageTitle'] = 'ActionTracker : New Task';
-        $this->global['include_datepicker_librarie'] = "true";
+        $this->global['all_projects'] = $this->project_model->getAllProjects();
         $this->global['site_url'] = site_url();
 
         // var_dump($this->global);
@@ -36,29 +37,7 @@ class New_task extends BaseController
     }
 
     /**
-     * This function is used to create a new project
-     */
-    public function create_new_project()
-    {
-        //$this->global['pageTitle'] = 'ActionTracker : New Task';
-        $project_name = $this->input->post('project_name');
-        //echo "Yeah: ".$project_name;
-        
-        //$this->loadViews("new_task", $this->global, NULL , NULL);
-    }
-    
-    /**
-     * This function is used to create a new problem
-     */
-    public function create_new_problem()
-    {
-        //$this->global['pageTitle'] = 'ActionTracker : New Task';
-        
-        //$this->loadViews("new_task", $this->global, NULL , NULL);
-    }
-    
-    /**
-     * This function is used to create a new problem
+     * This function is used to insert a new task in db
      */
     public function create_new_task()
     {

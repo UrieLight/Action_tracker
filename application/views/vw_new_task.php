@@ -29,70 +29,9 @@
                 </div>
             </div>
 
-            <div class="modal" id="modal-project">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Create New Project</h4>
-                        </div>
-
-                        <!-- <form action="New_task/create_new_project" method="POST"> -->
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Project name</label>
-                                    <input id="idInpt_project_name" type="text" class="form-control" placeholder="Enter ...">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Project Description</label>
-                                    <textarea id="idTxta_project_description" class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                <button id="idBtn_save_project" type="button" class="btn btn-primary">Save Project</button>
-                            </div>
-                        <!-- </form> -->
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
-
-
-            <div class="modal" id="modal-problem">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Create New Problem</h4>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Problem name</label>
-                                <input type="text" class="form-control" placeholder="Enter ...">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Problem Description</label>
-                                <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save Problem</button>
-                        </div>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
+            <?php include('new_tasks_files_includes/modal_new_project.php'); ?>
+            <?php include('new_tasks_files_includes/modal_new_problem.php'); ?>
+            
         </div>
         <br>
 
@@ -130,7 +69,7 @@
                                             <i class="fa fa-quote-right"></i>
                                         </div>
 
-                                        <textarea class="form-control" rows="3" style="resize: none;" placeholder="Tell something about the task..."></textarea>
+                                        <textarea class="form-control" rows="3" style="resize: none;" placeholder="Give some details about the task..."></textarea>
                                     </div>
                                 </div>
                                 <br>
@@ -185,11 +124,11 @@
                                     <label for="inputEmail3" class="col-sm-2 control-label">Holder email</label>
 
                                     <div class="col-sm-9 input-group">
-                                        <div class="input-group-addon btn btn-primary" style="cursor: pointer;">
+                                        <div id="btn_check_holderInfos" data-toggle="modal" data-target="#modal-show_holderInfos" class="input-group-addon btn btn-primary" style="cursor: pointer;">
                                             <i class="fa fa-check"></i>
                                         </div>
 
-                                        <input type="email" class="form-control" id="inputEmail3" placeholder="Type the email of the one to make it, then check it..." />
+                                        <input id="ipt_holderEmail" type="email" class="form-control" id="inputEmail3" placeholder="Type the email of the one to make it, then check it..." />
                                     </div>
 
                                     <!-- Gestion des partenaires externes plutard (dans une fenetre modale, je pense)
@@ -205,18 +144,19 @@
                                             <option>Huawei</option>
                                             <option>IHS</option>
                                             <option>ZTE</option>
-                                        </select> -->
-                                    </div>
+                                        </select>>
+                                    </div -->
                                 </div>
                                 <br>
+                                <?php include('new_tasks_files_includes/modal_show_holder_info.php'); ?>
 
                                 <!-- Link Task to a Project -->
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Add task to a Project</label>
 
                                     <div class="col-sm-9 input-group">
-                                        <div class="input-group-addon btn btn-success" id="btn-check-holders-email">
-                                            <i class="fa fa-refresh"></i>
+                                        <div class="input-group-addon" id="btn-check-holders-email">
+                                            <i class="fa fa-folder"></i>
                                         </div>
 
                                         <style>
@@ -227,12 +167,13 @@
                                             }
                                         </style>
 
-                                        <select class="form-control select2" style="">
+                                        <select id="slct_all_projects_list" class="form-control select2" style="width:100%;">
                                             <option selected="selected">None</option>
-                                            <!-- <option><button class="form-control btn btn-primary">Create Project</button></option> -->
-                                            <option>[PRJ#20180612#02] Migration IN vers 8.1</option>
-                                            <option>[PRJ#20180612#089] Swap routeur PE1 Ngoaekele</option>
-                                            <option>[PRJ#20180612#084] Paiement marchant OMUR</option>
+                                            <?php 
+                                                foreach($all_projects as $each_project){
+                                                    echo '<option '.$each_project->Project_id.'>'.$each_project->Project_name.'</option>';
+                                                } ?>
+                                            <!-- <option>[PRJ#20180612#084] Paiement marchant OMUR</option> -->
                                         </select>
                                     </div>
                                 </div>
@@ -243,11 +184,11 @@
                                     <label class="col-sm-2 control-label">Add task to a Problem</label>
 
                                     <div class="col-sm-9 input-group">
-                                        <div class="input-group-addon btn btn-success" id="btn-check-holders-email">
-                                            <i class="fa fa-refresh"></i>
+                                        <div class="input-group-addon" id="btn-check-holders-email">
+                                            <i class="fa fa-asterisk"></i>
                                         </div>
 
-                                        <select class="form-control select2" style="">
+                                        <select class="form-control select2" style="width:100%;">
                                             <option selected="selected">None</option>
                                             <!-- <option><button class="form-control btn btn-primary">Create Project</button></option> -->
                                             <option>[PB#20180612#02] Migration IN vers 8.1</option>
@@ -259,17 +200,21 @@
                                 <br>
 
                                 <!-- Join file -->
-                                <div class="form-group">
+                                <!-- 
+                                    *@TODO:
+                                    *Gestion de fichiers
+                                 -->
+                                <!--div class="form-group">
                                     <label class="col-sm-2 control-label" for="exampleInputFile">Join a File</label>
 
                                     <div class="col-sm-9 input-group">
                                         <!-- <div class="input-group-addon">
                                             <i class="fa fa-file"></i>
-                                        </div> -->
+                                        </div> ->
                                         
                                         <input class="col-sm-9" type="file" id="exampleInputFile">
                                     </div>
-                                </div>
+                                </div -->
                             </div>
 
                             <!-- /.box-body -->
@@ -312,28 +257,6 @@
     });
 </script>
 
-<script>
-    $(function () {
-        //Initialize Select2 Elements
-        $('#idBtn_save_project').on('click', function () {
-            var site_url = $('#idInpt_site_url').val();
-            var project_name = $('#idInpt_project_name').val();
-
-            $.ajax({
-                url: site_url+"New_task/create_new_project",
-                method: "POST",
-                data:{
-                    site_url: site_url,
-                    project_name: project_name
-                },
-                success: function(data){
-                    console.log(data);
-
-                },error: function(){
-                    console.log('error');
-                }
-            });
-        });
-
-    });
-</script>
+<!-- Include the file where the javascript sends the project datas to the server, to create one -->
+<?php include('new_tasks_files_includes/scripts/script_create_new_project.php'); ?>
+<?php include('new_tasks_files_includes/scripts/script_show_taskholder_infos.php'); ?>

@@ -1,6 +1,6 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_model extends CI_Model
+class Project_model extends CI_Model
 {
     /**
      * This function is used to get the user listing count
@@ -88,13 +88,13 @@ class User_model extends CI_Model
     
     
     /**
-     * This function is used to add new user to system
+     * This function is used to add new project to system
      * @return number $insert_id : This is last inserted id
      */
-    function addNewUser($userInfo)
+    function addNewProject($projectInfo)
     {
         $this->db->trans_start();
-        $this->db->insert('tbl_users', $userInfo);
+        $this->db->insert('Project', $projectInfo);
         
         $insert_id = $this->db->insert_id();
         
@@ -104,11 +104,27 @@ class User_model extends CI_Model
     }
     
     /**
-     * This function used to get user information by id
-     * @param number $userId : This is user id
-     * @return array $result : This is user information
+     * This function used to get qll created Projects
+     * @return array $result : Array of all Projects
      */
-    function getUserInfo($userId)
+    function getAllProjects()
+    {
+        /* $this->db->select('userId, name, email, mobile, roleId');
+        $this->db->from('tbl_users');
+        $this->db->where('isDeleted', 0);
+		$this->db->where('roleId !=', 1);
+        $this->db->where('userId', $userId); */
+        $query = $this->db->get('project');
+        
+        return $query->result();
+    }
+    
+    /**
+     * This function used to get Project information by id
+     * @param number $ProjectId : This is user id
+     * @return array $result : This is Project information
+     */
+    function getProjectInfo($userId)
     {
         $this->db->select('userId, name, email, mobile, roleId');
         $this->db->from('tbl_users');
